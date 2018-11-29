@@ -1,9 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Token.BRL.Interfaces;
 using Token.BRL.Model;
-using Token.DAL.Entities;
+//using Token.DAL.Entities;
 using Token.DAL.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Token.DAL.Entities;
 
 namespace Token.BRL.Services
 {
@@ -19,9 +22,25 @@ namespace Token.BRL.Services
         public async Task<User> GetUser(string login)
         {
 
-//            var result = await _userRepository.GetAll()
-//                .Include(y => y.AspnetUsersInRoles)
-
+            var result = await _userRepository.GetAll()
+                .Include(y => y.AspnetUsersInRoles)
+                .ThenInclude(z=> z.Role)
+                .Where(x=>x.UserName == login)
+                .Select(a =>
+                    new User()
+                    {
+                        Login = a.UserName,
+                        Email = a.UserName + "@test.com",
+                        Guid = a.UserId,
+                        Name = a.MobileAlias,
+                        Roles = a.AspnetUsersInRoles.Select(x=> new Role()
+                            {
+                                Id = x.Role.RoleId.ToString(),
+                                Name = x.Role.RoleName,
+                                Description = x.Role.Description
+                            })
+                    })
+                .FirstOrDefaultAsync();
             //var result = await _userRepository.GetAll()
             //    .Include(y => y.SystemUserRole)
             //    .ThenInclude(z => z.RoleCodeNavigation)
@@ -42,7 +61,8 @@ namespace Token.BRL.Services
             //        })
             //    .FirstOrDefaultAsync();
 
-            return null;
+            return result;
+
         }
 
     }

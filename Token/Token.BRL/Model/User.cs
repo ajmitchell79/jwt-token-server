@@ -23,6 +23,6 @@ namespace Token.BRL.Model
 
             public string Description { get; set; }
 
-            public string Category { get; set; }
+            public string Id { get; set; }
         }
 }

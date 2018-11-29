@@ -17,6 +17,7 @@ using Token.BRL.Common;
 using Token.BRL.Interfaces;
 using Token.BRL.Services;
 using Token.DAL.Entities;
+//using Token.DAL.Entities;
 using Token.DAL.Repositories;
 
 namespace Token.API
@@ -52,23 +53,22 @@ namespace Token.API
                 c.SwaggerDoc("v1", new Info
                     {
                         Version = "v1.0",
-                        Title = "Token Service API",
-                        Description = "Token Service API Description",
+                        Title = "Token API",
+                        Description = "Token API Description",
                         TermsOfService = "",
                         Contact = new Contact
                         {
                             Name = "Andrew Mitchell",
-                            Email = "andrew.mitchell@lancashiregroup.com",
-                            Url = "http://www.lancashiregroup.com"
+                            Email = "andrew.mitchell@test.com",
+                            Url = "http://www.test/com,"
                         }
-                        //{ Title = "Lunch Menu API", Version = "v1.0" });
                     }
                 );
 
                 c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "Token.xml"));
             });
 
-          services.AddDbContext<AuthContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+             services.AddDbContext<AuthContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddTransient<IUserService, UserService>();
            services.AddTransient<IRoleService, RoleService>();
@@ -141,8 +141,7 @@ namespace Token.API
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint(swaggerEndpoint, "Token Service API v1.0");
-                //c.SwaggerEndpoint("/tokenserver/swagger/v1/swagger.json", "Token Service API v1.0");
+                c.SwaggerEndpoint(swaggerEndpoint, "Token API v1.0");
                 //c.RoutePrefix = string.Empty;
             });
 

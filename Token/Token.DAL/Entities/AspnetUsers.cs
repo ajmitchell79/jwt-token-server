@@ -18,6 +18,7 @@ namespace Token.DAL.Entities
         public bool IsAnonymous { get; set; }
         public DateTime LastActivityDate { get; set; }
 
+        public AspnetApplications Application { get; set; }
         public ICollection<AspnetUsersInRoles> AspnetUsersInRoles { get; set; }
     }
 }

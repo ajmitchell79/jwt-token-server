@@ -16,6 +16,7 @@ namespace Token.DAL.Entities
         public string LoweredRoleName { get; set; }
         public string Description { get; set; }
 
+        public AspnetApplications Application { get; set; }
         public ICollection<AspnetUsersInRoles> AspnetUsersInRoles { get; set; }
     }
 }

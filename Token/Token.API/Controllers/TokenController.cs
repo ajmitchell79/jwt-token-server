@@ -10,6 +10,7 @@ using Token.BRL.Interfaces;
 
 namespace Token.API.Controllers
 {
+    [Route("api/token")]
     public class TokenController : BaseController, IController
     {
 
